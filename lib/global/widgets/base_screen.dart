@@ -1,53 +1,25 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
 
-class BaseScreen extends StatelessWidget {
-  final Widget body;
-  final Widget? leading;
-  final String? title;
-  final List<Widget>? actions;
+import 'package:flutter/material.dart';
 
-  const BaseScreen({
-    super.key,
-    required this.body,
-    this.leading,
-    this.title,
-    this.actions,
-  });
+class BaseScreen extends StatelessWidget {
+  final Widget? androidBody;
+  final Widget? iosBody;
+
+  const BaseScreen({super.key, this.androidBody, this.iosBody});
+
+  static bool isIos(BuildContext context) => Platform.isIOS;
+
+  static bool isAndroid(BuildContext context) => Platform.isAndroid;
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(title ?? ''),
-          leading: leading,
-          actions: actions,
-        ),
-        body: body,
-      );
-    } else if (Platform.isIOS) {
-      return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(title ?? ''),
-          leading: leading,
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: actions ?? [],
-          ),
-        ),
-        child: body,
-      );
+    if (isIos(context)) {
+      return iosBody!;
+    } else if (isAndroid(context)) {
+      return androidBody!;
     } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(title ?? ''),
-          leading: leading,
-          actions: actions,
-        ),
-        body: body,
-      );
+      return androidBody!;
     }
   }
 }

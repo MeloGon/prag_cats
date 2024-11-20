@@ -1,4 +1,5 @@
 import 'package:pragma_cats/features/home/data/models/weight_model.dart';
+import 'package:pragma_cats/features/home/domain/entities/cat_image.dart';
 
 class Cat {
   WeightModel? weight;
@@ -38,6 +39,7 @@ class Cat {
   String? wikipediaUrl;
   int? hypoallergenic;
   String? referenceImageId;
+  CatImage? image;
 
   Cat({
     this.weight,
@@ -77,5 +79,6 @@ class Cat {
     this.wikipediaUrl,
     this.hypoallergenic,
     this.referenceImageId,
+    this.image,
   });
 }

@@ -44,19 +44,25 @@ class AppNetwork {
     }).catchError((error) => print("EL ERROR $error"));
   }
 
-  Future<dynamic> get({
-    String url = '',
-    Map<String, String>? parameters,
-    String? token,
-    /*Encoding? encoding*/
-  }) async {
+  Future<dynamic> get(
+      {String url = '',
+      Map<String, String>? parameters,
+      String? token,
+      Map<String, String>? headers
+      /*Encoding? encoding*/
+      }) async {
     if (!await _checkInternetConnection())
       throw new Exception(['NOT_INTERNET_EXCEPTION']);
 
-    if (token != null)
+    if (token != null) {
       _dio.options.headers.addAll({"Authorization": "Bearer $token"});
-    else
+    } else {
       _dio.options.headers.remove("Authorization");
+    }
+
+    if (headers != null) {
+      _dio.options.headers.addAll(headers);
+    }
 
     _dio.options.contentType = Headers.jsonContentType;
 

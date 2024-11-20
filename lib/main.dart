@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_cats/core/config/di/service_locator.dart';
@@ -31,13 +34,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouterCubit = context.watch<RouterCubit>().state;
-    return MaterialApp.router(
-      routerConfig: appRouterCubit,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-    );
+    if (Platform.isIOS) {
+      return CupertinoApp.router(
+        routerConfig: appRouterCubit,
+        title: 'Flutter Demo',
+        theme: CupertinoThemeData(primaryColor: Colors.deepPurple),
+      );
+    } else {
+      return MaterialApp.router(
+        routerConfig: appRouterCubit,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+      );
+    }
   }
 }
