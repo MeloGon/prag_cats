@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_cats/core/config/di/service_locator.dart';
 import 'package:pragma_cats/core/config/router/app_router.dart';
+import 'package:pragma_cats/features/home/presentation/bloc/cats_bloc.dart';
 
 void main() {
   serviceLocatorInit();
@@ -17,6 +18,9 @@ class BlocProviders extends StatelessWidget {
       BlocProvider(
         create: (context) => getIt<RouterCubit>(),
       ),
+      BlocProvider(
+        create: (context) => getIt<CatsBloc>(),
+      ),
     ], child: const MyApp());
   }
 }
@@ -24,7 +28,6 @@ class BlocProviders extends StatelessWidget {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final appRouterCubit = context.watch<RouterCubit>().state;

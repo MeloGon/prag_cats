@@ -1,8 +1,8 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:logger/logger.dart';
 
-class NetworkUtil {
+class AppNetwork {
   final logger = Logger(printer: PrettyPrinter());
   final Dio _dio = Dio();
 
@@ -10,23 +10,23 @@ class NetworkUtil {
       {String url = '',
       Map? formData,
       String? token,
-      //Encoding? encoding,
-      //int? receiveTimeOut,
       bool showPrint = true}) async {
-    if (!await _checkInternetConnection())
-      throw new Exception(['NOT_INTERNET_EXCEPTION']);
+    if (!await _checkInternetConnection()) {
+      throw Exception(['NOT_INTERNET_EXCEPTION']);
+    }
 
-    if (token != null)
-      _dio.options.headers.addAll({"Authorization": "$token"});
-    else
+    if (token != null) {
+      _dio.options.headers.addAll({"Authorization": "Bearer $token"});
+    } else {
       _dio.options.headers.remove("Authorization");
+    }
 
     _dio.options.contentType = Headers.jsonContentType;
 
-    // logger.d("URL POST: " + AppHelpers.networkUrl + url);
-    // logger.d("Headers: " + _dio.options.headers.toString());
+    logger.d("URL POST: " + url);
+    logger.d("Headers: " + _dio.options.headers.toString());
     if (showPrint) {
-      //logger.d("Body: " + formData.toString());
+      logger.d("Body: " + formData.toString());
     }
 
     return _dio
@@ -38,7 +38,7 @@ class NetworkUtil {
                 responseType: ResponseType.json // or ResponseType.JSON
                 ))
         .then((Response response) {
-      //logger.d("Response [" + response.statusCode.toString() + "]: $response");
+      logger.d("Response [" + response.statusCode.toString() + "]: $response");
 
       return response.data;
     }).catchError((error) => print("EL ERROR $error"));
@@ -54,14 +54,14 @@ class NetworkUtil {
       throw new Exception(['NOT_INTERNET_EXCEPTION']);
 
     if (token != null)
-      _dio.options.headers.addAll({"Authorization": "Token $token"});
+      _dio.options.headers.addAll({"Authorization": "Bearer $token"});
     else
       _dio.options.headers.remove("Authorization");
 
     _dio.options.contentType = Headers.jsonContentType;
 
-    // logger.d("URL GET: " + AppHelpers.networkUrl + url);
-    // logger.d("Headers: " + _dio.options.headers.toString());
+    logger.d("URL GET: " + url);
+    logger.d("Headers: " + _dio.options.headers.toString());
 
     return _dio
         .get(url,
@@ -71,7 +71,40 @@ class NetworkUtil {
                 responseType: ResponseType.json // or ResponseType.JSON
                 ))
         .then((Response response) {
-      //logger.d("Response [" + response.statusCode.toString() + "]: $response");
+      logger.d("Response [" + response.statusCode.toString() + "]: $response");
+
+      return response.data;
+    }).catchError((error) => print("EL ERROR $error"));
+  }
+
+  Future<dynamic> delete({
+    String url = '',
+    Map<String, String>? parameters,
+    String? token,
+    /*Encoding? encoding*/
+  }) async {
+    if (!await _checkInternetConnection())
+      throw new Exception(['NOT_INTERNET_EXCEPTION']);
+
+    if (token != null)
+      _dio.options.headers.addAll({"Authorization": "Bearer $token"});
+    else
+      _dio.options.headers.remove("Authorization");
+
+    _dio.options.contentType = Headers.jsonContentType;
+
+    logger.d("URL GET: " + url);
+    logger.d("Headers: " + _dio.options.headers.toString());
+
+    return _dio
+        .delete(url,
+            queryParameters: parameters ?? {},
+            options: Options(
+                method: 'DELETE',
+                responseType: ResponseType.json // or ResponseType.JSON
+                ))
+        .then((Response response) {
+      logger.d("Response [" + response.statusCode.toString() + "]: $response");
 
       return response.data;
     }).catchError((error) => print("EL ERROR $error"));
