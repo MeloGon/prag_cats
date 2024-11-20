@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_cats/core/config.dart';
 
 import 'package:pragma_cats/features/home/domain/entities/cat.dart';
@@ -9,8 +10,11 @@ class CatCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appRouterCubit = context.watch<RouterCubit>();
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        appRouterCubit.goCatDetails(cat);
+      },
       child: Card(
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -22,23 +26,27 @@ class CatCardWidget extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              foregroundDecoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black,
-                    Colors.transparent,
-                    Colors.transparent,
-                    Colors.black
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0, 0.4, 0.6, 1],
+                foregroundDecoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black,
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.black
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0, 0.4, 0.6, 1],
+                  ),
                 ),
-              ),
-              child: Image.network(
-                cat.image?.url ?? '',
-              ),
-            ),
+                child: (cat.image?.url != null)
+                    ? Hero(
+                        tag: '${cat.id}',
+                        child: Image.network(
+                          cat.image!.url!,
+                        ),
+                      )
+                    : const SizedBox()),
             Positioned(
               top: 10,
               left: 10,
