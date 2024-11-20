@@ -14,15 +14,15 @@ final class CatsLoadingState extends CatsState {
 
 final class CatsLoadedState extends CatsState {
   final List<Cat> catsList;
-  CatsLoadedState(this.catsList);
+  final List<Cat>? filteredCats;
+  CatsLoadedState(this.catsList, {this.filteredCats});
   @override
-  List<Object?> get props => [catsList];
+  List<Object?> get props => [catsList, filteredCats];
 }
 
 final class CatsFailureState extends CatsState {
   final Failure failure;
   CatsFailureState(this.failure);
   @override
-  // TODO: implement props
   List<Object?> get props => [failure];
 }

@@ -26,7 +26,11 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
+                  onChanged: (value) {
+                    context.read<CatsBloc>().searchCats(value);
+                  },
                 ),
                 10.h,
                 BlocBuilder<CatsBloc, CatsState>(
@@ -39,10 +43,14 @@ class HomeScreen extends StatelessWidget {
                         );
 
                       case CatsLoadedState():
+                        final filteredCats = state.filteredCats;
+                        if (filteredCats?.isEmpty ?? false) {
+                          return const Center(child: Text('No results found'));
+                        }
                         return Expanded(
                           child: ListView(
                             shrinkWrap: true,
-                            children: state.catsList.map((cat) {
+                            children: state.filteredCats!.map((cat) {
                               return CatCardWidget(cat: cat);
                             }).toList(),
                           ),
@@ -76,6 +84,9 @@ class HomeScreen extends StatelessWidget {
                 CupertinoSearchTextField(
                   controller: TextEditingController(),
                   placeholder: AppStrings.search,
+                  onChanged: (value) {
+                    context.read<CatsBloc>().searchCats(value);
+                  },
                 ),
                 10.h,
                 BlocBuilder<CatsBloc, CatsState>(
@@ -88,10 +99,14 @@ class HomeScreen extends StatelessWidget {
                         );
 
                       case CatsLoadedState():
+                        final filteredCats = state.filteredCats;
+                        if (filteredCats?.isEmpty ?? false) {
+                          return const Center(child: Text('No results found'));
+                        }
                         return Expanded(
                           child: ListView(
                             shrinkWrap: true,
-                            children: state.catsList.map((cat) {
+                            children: state.filteredCats!.map((cat) {
                               return CatCardWidget(cat: cat);
                             }).toList(),
                           ),

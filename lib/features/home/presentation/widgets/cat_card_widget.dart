@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_cats/core/config.dart';
@@ -11,7 +12,7 @@ class CatCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouterCubit = context.watch<RouterCubit>();
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         appRouterCubit.goCatDetails(cat);
       },
@@ -42,8 +43,12 @@ class CatCardWidget extends StatelessWidget {
                 child: (cat.image?.url != null)
                     ? Hero(
                         tag: '${cat.id}',
-                        child: Image.network(
-                          cat.image!.url!,
+                        child: CachedNetworkImage(
+                          imageUrl: cat.image!.url!,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       )
                     : const SizedBox()),
