@@ -1,16 +1,16 @@
-# pragma_cats
+# CatsBreeds
 
-A new Flutter project.
+Este proyecto es la resolucion del test solicitado.
 
-## Getting Started
+- Gestor de estado bloc usando clean architecture
 
-This project is a starting point for a Flutter application.
+# Resultados en Android y Ios
 
-A few resources to get you started if this is your first Flutter project:
+No los subi directamente como gif ya que me quedaban algo pesados. Pero los subi a mi drive 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Android : https://drive.google.com/file/d/1ADVcBb0M1E9B4Y-cyHDrTiAZpj7x4zi-/view?usp=sharing
+Ios : https://drive.google.com/file/d/1hve7YWKCbxvWnNvLNJBeIi4U-q9o7QiM/view?usp=sharing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Por si acaso un apk :
+https://drive.google.com/file/d/1gaO_Az7hVO7H7M_fR_v0kQOJ2wHGpoma/view?usp=sharing
+
