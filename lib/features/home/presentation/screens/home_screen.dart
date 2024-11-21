@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pragma_cats/core/config.dart';
-import 'package:pragma_cats/core/extensions/text_theme_extension.dart';
 import 'package:pragma_cats/features/home/presentation/bloc/cats_bloc.dart';
 import 'package:pragma_cats/features/home/presentation/widgets/home_widgets.dart';
 import 'package:pragma_cats/global/widgets/base_screen.dart';
@@ -74,6 +71,7 @@ class HomeScreen extends StatelessWidget {
             AppStrings.appTitle,
             style: context.headlineMedium,
           ),
+          automaticallyImplyLeading: false,
         ),
         child: SafeArea(
           child: Padding(

@@ -1,7 +1,6 @@
 import 'package:pragma_cats/features/home/data/models/cat_image_model.dart';
 import 'package:pragma_cats/features/home/data/models/weight_model.dart';
 import 'package:pragma_cats/features/home/domain/entities/cat.dart';
-import 'package:pragma_cats/features/home/domain/entities/cat_image.dart';
 
 class CatModel extends Cat {
   CatModel(

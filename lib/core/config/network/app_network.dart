@@ -52,7 +52,7 @@ class AppNetwork {
       /*Encoding? encoding*/
       }) async {
     if (!await _checkInternetConnection())
-      throw new Exception(['NOT_INTERNET_EXCEPTION']);
+      throw Exception(['NOT_INTERNET_EXCEPTION']);
 
     if (token != null) {
       _dio.options.headers.addAll({"Authorization": "Bearer $token"});
@@ -90,7 +90,7 @@ class AppNetwork {
     /*Encoding? encoding*/
   }) async {
     if (!await _checkInternetConnection())
-      throw new Exception(['NOT_INTERNET_EXCEPTION']);
+      throw Exception(['NOT_INTERNET_EXCEPTION']);
 
     if (token != null)
       _dio.options.headers.addAll({"Authorization": "Bearer $token"});

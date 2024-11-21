@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:pragma_cats/core/config.dart';
-import 'package:pragma_cats/core/config/router/app_router.dart';
 import 'package:pragma_cats/features/home/data/datasources/home_data_source.dart';
 import 'package:pragma_cats/features/home/data/repositories/home_repository_impl.dart';
 import 'package:pragma_cats/features/home/domain/repositories/home_repository.dart';

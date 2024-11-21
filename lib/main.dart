@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       return CupertinoApp.router(
         routerConfig: appRouterCubit,
         title: 'Flutter Demo',
-        theme: CupertinoThemeData(primaryColor: Colors.deepPurple),
+        theme: const CupertinoThemeData(primaryColor: Colors.deepPurple),
       );
     } else {
       return MaterialApp.router(

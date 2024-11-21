@@ -3,11 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:pragma_cats/features/cat_details/presentation/screens/cat_details_screen.dart';
 import 'package:pragma_cats/features/home/domain/entities/cat.dart';
 import 'package:pragma_cats/features/home/presentation/screens/home_screen.dart';
+import 'package:pragma_cats/features/splash/presentation/screens/splash_screen.dart';
 
 final _publicRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/home',
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
@@ -17,7 +18,7 @@ final _publicRouter = GoRouter(
         return CatDetailsScreen(cat: cat);
       },
     ),
-    //GoRoute(path: '/splashScreen',builder: (context,state) => ),
+    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
   ],
 );
 
@@ -30,5 +31,9 @@ class RouterCubit extends Cubit<GoRouter> {
 
   void goCatDetails(Cat cat) {
     state.push('/catDetails', extra: cat);
+  }
+
+  void goHome() {
+    state.push('/home');
   }
 }
