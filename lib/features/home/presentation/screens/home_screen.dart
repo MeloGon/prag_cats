@@ -12,55 +12,60 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      androidBody: Scaffold(
-        appBar: AppBar(
-          title: const Text(AppStrings.appTitle),
-          centerTitle: true,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-            child: Column(
-              children: [
-                TextField(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  onChanged: (value) {
-                    context.read<CatsBloc>().searchCats(value);
-                  },
-                ),
-                10.h,
-                BlocBuilder<CatsBloc, CatsState>(
-                  builder: (context, state) {
-                    switch (state) {
-                      case CatsLoadingState():
-                      case CatsInitialState():
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+      androidBody: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(AppStrings.appTitle),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+          ),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
+                    onChanged: (value) {
+                      context.read<CatsBloc>().searchCats(value);
+                    },
+                  ),
+                  10.h,
+                  BlocBuilder<CatsBloc, CatsState>(
+                    builder: (context, state) {
+                      switch (state) {
+                        case CatsLoadingState():
+                        case CatsInitialState():
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
 
-                      case CatsLoadedState():
-                        final filteredCats = state.filteredCats;
-                        if (filteredCats?.isEmpty ?? false) {
-                          return const Center(child: Text('No results found'));
-                        }
-                        return Expanded(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: state.filteredCats!.map((cat) {
-                              return CatCardWidget(cat: cat);
-                            }).toList(),
-                          ),
-                        );
+                        case CatsLoadedState():
+                          final filteredCats = state.filteredCats;
+                          if (filteredCats?.isEmpty ?? false) {
+                            return const Center(
+                                child: Text('No results found'));
+                          }
+                          return Expanded(
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: state.filteredCats!.map((cat) {
+                                return CatCardWidget(cat: cat);
+                              }).toList(),
+                            ),
+                          );
 
-                      case CatsFailureState():
-                        return const Center(
-                          child: Text(AppStrings.anErrorHasOcurred),
-                        );
-                    }
-                  },
-                ),
-              ],
+                        case CatsFailureState():
+                          return const Center(
+                            child: Text(AppStrings.anErrorHasOcurred),
+                          );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
